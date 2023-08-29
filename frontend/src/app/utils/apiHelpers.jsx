@@ -1,0 +1,17 @@
+export function getStrapiUrl(path = "") {
+  return `${
+    process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://127.0.0.1:1337"
+  }${path}`;
+}
+
+export function getStrapiMedia(url) {
+  if (url == null) return null;
+
+  // Return the full URL if the media is hosted on an external provider
+  if (url.startsWith("http") || url.startsWith("//")) {
+    return url;
+  }
+
+  // Otherwise prepend the URL path with the Strapi URL
+  return `${getStrapiUrl()}${url}`;
+}
